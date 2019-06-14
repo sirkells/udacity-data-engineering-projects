@@ -10,6 +10,61 @@ They'd like a data engineer to create a Postgres database with tables designed t
 
 In this project, you'll apply what you've learned on data modeling with Postgres and build an ETL pipeline using Python. To complete the project, you will need to define fact and dimension tables for a star schema for a particular analytic focus, and write an ETL pipeline that transfers data from files in two local directories into these tables in Postgres using Python and SQL.
 
+### Summary
+In this project we performed analyses for startup Sparkify to understand what songs users are listening to.
+
+Sprakify shared 3 types of JSON log files, which contain information on user activity, songs, artists data.
+
+To acomplish this task we model STAR schema in Postgre SQL and implement ETL pipeline script on Python 3 to fetch data from logs to tables created in Postgres.
+
+### Databse Design
+## Fact Table
+#songplays - records in log data associated with song plays:
+
+songplay_id
+start_time
+user_id
+level
+song_id
+artist_id
+session_id
+location
+user_agent
+
+## Dimension Tables
+#users - users in the app:
+
+user_id
+first_name
+last_name
+gender
+level
+
+#songs - songs in music database:
+
+song_id
+title
+artist_id
+year
+duration
+
+#artists - artists in music database:
+
+artist_id
+name
+location
+lattitude
+longitude
+
+#time - timestamps of records in songplays broken down into specific units
+
+start_time
+hour
+day
+week
+month
+year
+weekday
 ## Solutioning
 
 Instead of storing the generated data from the user into the JSON files, a database which isused for modeling techniques and it helps in the fast retrieval of data. This can be made even more efficient with the approach of the STAR schema.
@@ -94,3 +149,21 @@ etl.ipynb/et.py
    $ python etl.py
 test.ipynb
 ```
+
+### Steps to run project and gather stats:
+In the Terminal(command line) run command:
+python create_tables.py This will create Sparkify database and Fact and all Dimensions tables.
+
+In the Terminal(command line) run command:
+python etl.py This will run ETL process, printing out details on processed log files.
+
+Now you have you data organized in tables and you can query for different stats. Connecto to database from terminal with command:
+psql -d sparkifydb -U student
+
+For example, if you want to display 20 most active 'paid' users, run this query:
+
+SELECT user_id, count(user_id) requests FROM songplay WHERE level = 'paid' GROUP BY user_id ORDER BY requests DESC LIMIT 20;
+
+If you need information what browsers are most popular, run this query:
+
+SELECT user_agent, count(user_agent) FROM songplay GROUP BY user_agent ORDER BY count(user_agent) DESC;
