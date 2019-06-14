@@ -17,9 +17,9 @@ Sprakify shared 3 types of JSON log files, which contain information on user act
 
 To acomplish this task we model STAR schema in Postgre SQL and implement ETL pipeline script on Python 3 to fetch data from logs to tables created in Postgres.
 
-### Databse Design
+# Databse Design
 ## Fact Table
-#songplays - records in log data associated with song plays:
+### songplays - records in log data associated with song plays:
 
 songplay_id
 start_time
@@ -40,7 +40,7 @@ last_name
 gender
 level
 
-#songs - songs in music database:
+### songs - songs in music database:
 
 song_id
 title
@@ -48,7 +48,7 @@ artist_id
 year
 duration
 
-#artists - artists in music database:
+### artists - artists in music database:
 
 artist_id
 name
@@ -56,7 +56,7 @@ location
 lattitude
 longitude
 
-#time - timestamps of records in songplays broken down into specific units
+### time - timestamps of records in songplays broken down into specific units
 
 start_time
 hour
@@ -65,6 +65,7 @@ week
 month
 year
 weekday
+
 ## Solutioning
 
 Instead of storing the generated data from the user into the JSON files, a database which isused for modeling techniques and it helps in the fast retrieval of data. This can be made even more efficient with the approach of the STAR schema.
